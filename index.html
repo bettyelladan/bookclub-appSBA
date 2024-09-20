@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            color: white;
+        }
+        .card {
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <title>Colorful User List</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Colorful User List</h1>
+        <div class="row" id="user-list"></div>
+    </div>
+    <script>
+        fetch('/users')
+            .then(response => response.json())
+            .then(data => {
+                const userList = document.getElementById('user-list');
+                data.forEach(user => {
+                    userList.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">${user.name}</h5>
+                                    <p class="card-text">${user.email}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+    </script>
+</body>
+</html>
